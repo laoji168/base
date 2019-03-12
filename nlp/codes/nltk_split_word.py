@@ -67,10 +67,57 @@ def fun_1_1_4():
 
 
 # 1.1.5 使用正则表达式实现切分
+def fun_1_1_5():
+    import nltk
+    from nltk.tokenize import RegexpTokenizer
+    from nltk.tokenize import regexp_tokenize
+    tokenizer = RegexpTokenizer("[\w]+")
+    print "RegexpTokenizer:", tokenizer.tokenize("Don't hesitate to ask questions")
+    print "regexp_tokenizer:", regexp_tokenize("Don't hesitate to ask questions", pattern="\w+|\$[\d\.]+|\S+")
+    # 通过空格来执行切分
+    tokenizer = RegexpTokenizer('\s+', gaps=True)
+    print "RegexpTokenizer:", tokenizer.tokenize("Don't hesitate to ask questions")
+    # 筛选以大写字母开头的单词
+    sent = " She secured 90.56 % in class X \n. She is a meritorious student"
+    capt = RegexpTokenizer('[A-Z]\w+')
+    print "RegexpTokenizer:", capt.tokenize(sent)
+    # RegexpTokenizer 的一个子类是如何使用预定义正则表达式的
+    from nltk.tokenize import BlanklineTokenizer
+    print "BlanklineTokenizer:", BlanklineTokenizer().tokenize(sent)
+    # 字符串的切分可以通过空格、间隔、换行等来完成
+    from nltk.tokenize import WhitespaceTokenizer
+    print "WhitespaceTokenizer:", WhitespaceTokenizer().tokenize(sent)
+    # WordPunctTokenizer 使用正则表达式\w+|[^\w\s]+来执行文本的切分,并将其
+    # 切分为字母与非字母字符
+    from nltk.tokenize import WordPunctTokenizer
+    print "WordPunctTokenizer:", WordPunctTokenizer().tokenize(sent)
+    # 使用 split()方法进行切分
+    print "split():", sent.split()
+    print "split(' '):", sent.split(' ')
+    print "split('\n'):", sent.split('\n')
+    # 类似于 sent.split('\n')方法,LineTokenizer 通过将文本切分为行来执行切分
+    from nltk.tokenize import LineTokenizer
+    print "LineTokenizer:", LineTokenizer().tokenize(sent)
+    print "LineTokenizer:", LineTokenizer(blanklines='keep').tokenize(sent)
+    print "LineTokenizer:", LineTokenizer(blanklines='discard').tokenize(sent)
+    # SpaceTokenizer 与 sent.split('')方法的工作原理类似
+    from nltk.tokenize import SpaceTokenizer
+    print "SpaceTokenizer:", SpaceTokenizer().tokenize(sent)
+    # nltk.tokenize.util 模块通过返回元组形式的序列来执行切分,该序列为标识符
+    # 在语句中的位置和偏移量
+    print "标识符序列：", list(WhitespaceTokenizer().span_tokenize(sent))
+    # 给定一个标识符的序列,则可以返回其跨度序列
+    from nltk.tokenize.util import spans_to_relative
+    print "位置和偏移：", list(spans_to_relative(WhitespaceTokenizer().span_tokenize(sent)))
+    # 通过在每一个分隔符的连接处进行分割,nltk.tokenize.util.string_span_tokenize(sent,separator)将返回 sent 中标识符的偏移量:
+    from nltk.tokenize.util import string_span_tokenize
+    print "标识符序列：", list(string_span_tokenize(sent, " "))
+
+
 
 
 if __name__ == '__main__':
 
     # import nltk
     # nltk.download('punkt')
-    fun_1_1_4()
+    fun_1_1_5()
