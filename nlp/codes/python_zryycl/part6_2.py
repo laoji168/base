@@ -89,7 +89,7 @@ def fun3():
     print extractor.overlap('word')
     print extractor.overlap('ne')
     print extractor.hyp_extra('word')
-    
+    nltk.pos_tag()
 
 
 fun2()
