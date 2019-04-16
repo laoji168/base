@@ -1,4 +1,4 @@
-package my_test
+package main
 
 import (
     "fmt"
@@ -54,15 +54,17 @@ func homePage(writer http.ResponseWriter, request *http.Request)  {
         fmt.Fprintf(writer, anError, err)
     } else {
         if numbers, message, ok := processRequest(request); ok {
-            
+            fmt.Println(numbers, message)
         }
     }
 }
 
 func getStats(numbers []float64) (stats statistics) {
-    stats.numbers = numbers
-    sort.Float64s(stats.numbers)  //对原数组升序排列
-}
+   stats.numbers = numbers
+   sort.Float64s(stats.numbers)  //对原数组升序排列
+   return stats
+
+   }
 
 func sum(numbers []float64) (total float64) {
     for _, x := range numbers {
