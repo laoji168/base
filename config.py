@@ -1,0 +1,2 @@
+DB_CONFIG = ""
+DEFAULT_SCORE = ""
